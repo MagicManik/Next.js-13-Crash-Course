@@ -30,7 +30,7 @@ const HomePage = () => {
         <div className='text-center'>
           <h1 className='text-8xl py-6 bg-gradient-to-r from-blue-600 via-green-500 to-orange-400 inline-block text-transparent bg-clip-text font-medium'>Manik Islam Mahi</h1>
         </div>
-        <CourseSearch getSearchResults={(result) => setCourses(result)} />
+        <CourseSearch getSearchResults={(results) => setCourses(results)} />
         <Courses courses={courses} />
       </section>
       <div className='flex justify-center gap-6 py-10'>
