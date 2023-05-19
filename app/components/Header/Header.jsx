@@ -3,7 +3,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header className=' bg-gray-700 text-white'>
+        <header className='bg-slate-800 text-white'>
             <nav className='ml-5'>
                 <ul>
                     <li className='py-4'>

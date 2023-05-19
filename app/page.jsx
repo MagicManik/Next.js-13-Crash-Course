@@ -1,13 +1,37 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect, useState } from 'react';
 import Courses from './components/Courses/Courses';
+import CourseSearch from './components/CourseSearch/CourseSearch';
+import LoadingPage from './loading';
 
 const HomePage = () => {
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const res = await fetch('/api/courses');
+      const data = await res.json();
+      setCourses(data);
+      setLoading(false);
+    };
+
+    fetchCourses();
+  }, []);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
   return (
     <main className='py-8 text-white devconf-bg'>
       <section className='container mx-auto'>
-        <h1 className='text-8xl py-6 bg-gradient-to-r from-blue-600 via-green-500 to-orange-400 inline-block text-transparent bg-clip-text font-medium'>Manik Islam Mahi</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores voluptates, voluptatum consequuntur recusandae fugit debitis quisquam quia dicta eligendi suscipit magnam velit non ducimus harum aut. Maxime animi pariatur sunt ab. Repudiandae dignissimos atque sed repellendus cum perspiciatis assumenda praesentium recusandae dolore. Doloremque magnam odio quidem obcaecati eveniet eligendi rem ducimus veritatis repudiandae quae esse et molestiae quaerat aspernatur suscipit corrupti, nobis expedita placeat. Magnam, blanditiis? Ut aliquam eligendi voluptas, rerum voluptates error alias, praesentium molestias nesciunt modi impedit quasi. Libero accusantium consequuntur nihil, soluta nam placeat vel cumque quasi ab voluptatum alias praesentium dolorem nulla accusamus saepe repudiandae earum inventore vitae. Inventore quas consequuntur recusandae optio laudantium, doloremque eos tempora, magnam architecto nesciunt vero pariatur impedit illum eum reprehenderit sequi at ad numquam minima! Eum, debitis cumque aspernatur est enim rem, omnis hic eveniet nisi inventore repudiandae. Cumque quo, et vitae tempore expedita velit odit? Reiciendis perspiciatis laboriosam quia porro nam officia magnam quasi nemo, dicta, expedita, ipsam natus at pariatur minus consequatur! Non perferendis aperiam quisquam facilis obcaecati. Accusamus ratione cupiditate vitae ducimus culpa, id dolore. Dolore est, fuga aliquam quaerat sint, error modi, sapiente consequuntur veritatis dicta ex? Odio nam doloremque labore illum, voluptatibus deleniti obcaecati necessitatibus?</p>
-        <Courses />
+        <div className='text-center'>
+          <h1 className='text-8xl py-6 bg-gradient-to-r from-blue-600 via-green-500 to-orange-400 inline-block text-transparent bg-clip-text font-medium'>Manik Islam Mahi</h1>
+        </div>
+        <CourseSearch getSearchResults={(result) => setCourses(result)} />
+        <Courses courses={courses} />
       </section>
       <div className='flex justify-center gap-6 py-10'>
         <video
